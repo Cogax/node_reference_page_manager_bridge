@@ -1,0 +1,30 @@
+<?php
+/**
+ * @file
+ * Page Manager bridge for rendered node reference field formatter.
+ */
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function node_reference_page_manager_bridge_field_formatter_info_alter(&$info) {
+  $info['node_reference_node']['module'] = 'node_reference_page_manager_bridge';
+}
+
+/**
+ * Implements hook_field_formatter_prepare_view().
+ */
+function node_reference_page_manager_bridge_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+  node_reference_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, $items, $displays);
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function node_reference_page_manager_bridge_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $results = node_reference_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display);
+  foreach($results as $key => $result) {
+    $results[$key] = page_manager_node_view_page(node_load($result['#node']->nid));
+  }
+  return $results;
+}
