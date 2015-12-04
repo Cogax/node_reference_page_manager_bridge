@@ -2,5 +2,5 @@ name = Node Reference Page Manager Formatter
 description = Page Manager bridge for rendered node reference field formatter
 core = 7.x
 
-dependencies[] = panels
+dependencies[] = page_manager
 dependencies[] = node_reference
