@@ -25,9 +25,11 @@ function node_reference_page_manager_bridge_field_formatter_view($entity_type, $
   $element = array();
 
   foreach($items as $delta => $item) {
-    $element[$delta]['#type'] = 'markup';
-    $element[$delta]['#markup'] = page_manager_node_view_page($item['node']);
+    if($item['access']) {
+      $markup = page_manager_node_view_page($item['node']);
+      $element[$delta] = (is_array($markup)) ? $markup : array('#markup' => $markup);
+    }
   }
-  
+
   return $element;
 }
