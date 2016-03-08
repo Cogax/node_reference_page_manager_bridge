@@ -8,7 +8,7 @@
  * Implements hook_field_formatter_info_alter().
  */
 function node_reference_page_manager_bridge_field_formatter_info_alter(&$info) {
-  if(function_exists('page_manager_node_view_page')) {
+  if(module_exists('page_manager')) {
     $info['node_reference_node']['module'] = 'node_reference_page_manager_bridge';
   }
 }
