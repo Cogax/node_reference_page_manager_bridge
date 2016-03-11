@@ -28,7 +28,13 @@ function node_reference_page_manager_bridge_field_formatter_view($entity_type, $
 
   foreach($items as $delta => $item) {
     if($item['access']) {
-      $markup = page_manager_node_view_page($item['node']);
+
+      if(function_exists('page_manager_node_view_page')) {
+        $markup = page_manager_node_view_page($item['node']);
+      } else {
+        $markup = node_page_view($item['node']);
+      }
+      
       $element[$delta] = (is_array($markup)) ? $markup : array('#markup' => $markup);
     }
   }
